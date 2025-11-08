@@ -1,115 +1,192 @@
-# System Architecture – Knowledge Archive
+System Architecture – Raindrop.io
 
-This document describes the high-level technical design for the retrieval-first bookmarking and knowledge platform.
+A retrieval-first redesign of Raindrop.io focused on making saved information discoverable, searchable, and intelligent.
+This document outlines the system architecture, technologies, and data flow guiding the product’s development.
 
-## 1. Overview
+Overview
 
-The system uses a three-layer structure:
+Raindrop Reimagined is a knowledge asset platform that helps users save, organize, and rediscover online content such as links, notes, videos, and documents — using intelligent retrieval and semantic search.
 
-- **Frontend:** Interface where users save, search, and explore content.
-- **Backend:** API layer that handles authentication, saving items, search logic, and recommendations.
-- **Database & Search Layer:** Stores all saved items and powers fast, relevant retrieval.
+The system follows a modular architecture that separates concerns across the frontend, backend, database, and AI search layers.
 
-The goal is to make finding saved content simple, fast, and reliable.
+System Components
+1. Frontend
 
----
+Technology Stack: React.js + Tailwind CSS
+Hosting: Vercel or Netlify
 
-## 2. Frontend
+Purpose:
 
-**Technology (proposed):** React.js (web)
+Provide users with an intuitive, responsive interface for saving, searching, and rediscovering content.
 
-**Responsibilities:**
+Handle all user interactions, onboarding, and visualization of search results.
 
-- Display saved items, collections, search results, and recommendations
-- Provide input for:
-  - Keyword search
-  - “Ask My Archive” (natural language search)
-- Communicate with backend via HTTPS (JSON APIs)
+Key Modules:
 
-**Why React:**
+Home Dashboard: Displays collections, recent saves, and rediscovery cards.
 
-- Easy to build interactive dashboards
-- Large ecosystem and community support
-- Works well with component-based design
+Ask My Archives: Search input with AI-assisted retrieval.
 
----
+Save Interface: Form for adding links with optional tags and notes.
 
-## 3. Backend
+Search Results Page: Lists filtered results from backend and AI layer.
 
-**Technology (proposed):** Node.js with Express
+Why React:
 
-**Responsibilities:**
+Component-based structure enables scalability and modular updates.
 
-- Handle user signup, login, and authentication
-- Expose RESTful APIs:
-  - `POST /items` – save a new link or note
-  - `GET /items` – list saved items
-  - `GET /search` – keyword search
-  - `POST /ask-archive` – natural language query handling
-- Integrate with search engine (Elasticsearch or vector DB)
+Optimized for rendering dynamic, real-time search results.
 
-**Why Node.js:**
+Tailwind CSS ensures clean, consistent, and responsive UI design.
 
-- Non-blocking and scalable
-- Widely understood by developers
-- Works smoothly with JSON-based APIs
+2. Backend
 
----
+Technology Stack: Node.js + Express
+Hosting: Render, Railway, or AWS
 
-## 4. Database
+Purpose:
 
-**Options:** MongoDB or PostgreSQL
+Handle authentication, CRUD operations, and communication with database and AI services.
 
-**Data stored:**
+Act as the bridge between user actions (frontend) and stored data (backend + search).
 
-- Users
-- Saved items (URL, title, description, tags, content snippet)
-- Activity logs (views, clicks, timestamps)
+Core Functionalities:
 
-**Why this is feasible:**
+User registration and login
 
-- Both options support large datasets
-- Flexible enough for bookmarks, notes, and metadata
-- Easy to query by user, tag, keyword, or date
+Save and organize new items
 
----
+Query search requests
 
-## 5. Search & “Ask My Archive”
+Manage semantic indexing and AI results
 
-**Search Layer:**
+API endpoints for all client requests
 
-- Use Elasticsearch or a vector database
-- Index:
-  - Titles
-  - Descriptions
-  - Page content (if available)
-  - Tags
+Why Node.js:
 
-**“Ask My Archive” Flow:**
+Asynchronous, event-driven architecture supports fast data retrieval.
 
-1. User types a natural language query (e.g. “AI tools I saved last month”).
-2. Backend converts it to a semantic search query.
-3. Search layer returns the most relevant items.
-4. Backend sends ranked results back to frontend.
+Well-suited for lightweight microservices that scale easily.
 
-This makes search smarter than exact text matching.
+3. Database Layer
 
----
+Technology Stack: MongoDB (via MongoDB Atlas)
 
-## 6. Communication Flow
+Purpose:
+Store and manage user data, saved content, tags, and metadata.
 
-1. User interacts with the **Frontend**.
-2. Frontend sends requests to the **Backend** via HTTPS.
-3. Backend:
-   - Reads/writes data in the **Database**
-   - Queries the **Search layer** for results
-4. Backend returns clean JSON responses.
-5. Frontend displays results and insights to the user.
+Collections Example:
 
----
+users → user info, preferences, permissions
 
-## 7. Technical Feasibility
+saves → links, notes, files, tags
 
-- Based on common, well-supported tools (React, Node.js, MongoDB/PostgreSQL, Elasticsearch).
-- Can start as a simple MVP and scale as usage grows.
-- Clear separation of concerns makes it easy for an engineering team to implement, maintain, and extend.
+activity → recent actions, rediscovery data
+
+ai_index → embeddings and semantic metadata
+
+Why MongoDB:
+
+Non-relational schema supports flexible data (different save types).
+
+Easy integration with Node.js using Mongoose ORM.
+
+4. Search and Retrieval Layer
+
+Technology Stack: Elasticsearch or Meilisearch
+
+Purpose:
+Enable fast, accurate, and semantic search capabilities across user-saved items.
+
+Features:
+
+Fuzzy keyword search (e.g., “camp” → “campaign”)
+
+Relevance-based ranking
+
+Category-based filtering (links, notes, videos, etc.)
+
+Integration with AI embeddings for smarter discovery
+
+Why Elasticsearch:
+
+Scalable indexing for large datasets.
+
+Supports both exact and semantic search.
+
+5. AI & Intelligence Layer
+
+Technology Stack: OpenAI API or HuggingFace models
+
+Purpose:
+Power the “Ask My Archives” feature and allow users to ask natural language questions and get results from their saved data.
+
+Main Features:
+
+Convert text queries into embeddings for semantic matching.
+
+Suggest related items via content similarity.
+
+Auto-tag saved links using NLP classification.
+
+Summarize long articles for rediscovery dashboard.
+
+Why OpenAI:
+
+Offers robust embedding models for semantic search.
+
+Fast integration with RESTful APIs.
+
+6. DevOps & Hosting
+Component	Service	Purpose
+Frontend	Vercel / Netlify	Continuous deployment for React app
+Backend	Render / AWS / Railway	API and service hosting
+Database	MongoDB Atlas	Managed NoSQL database
+Search Engine	Elastic Cloud / Meilisearch	Scalable search service
+AI Layer	OpenAI / HuggingFace API	Intelligent retrieval engine
+⚙️ Data Flow Overview
+flowchart LR
+A[Frontend: React App] --> B[Backend: Node.js API]
+B --> C[Database: MongoDB]
+B --> D[Search Engine: Elasticsearch]
+B --> E[AI Layer: OpenAI Embeddings]
+E --> D
+C --> D
+D --> A
+
+
+Flow Summary:
+
+User enters a query in the “Ask My Archives” bar.
+
+Frontend sends the query to the backend API.
+
+Backend forwards the query to both MongoDB and the AI layer.
+
+The AI layer converts it into embeddings and matches it in the search index.
+
+Results are ranked, formatted, and sent back to the frontend for display.
+
+Feasibility Summary
+
+All chosen technologies are open-source and integrate seamlessly.
+
+Architecture allows for scalable growth, adding new features without refactoring core systems.
+
+Supports multi-device access with APIs adaptable for web, mobile, and desktop.
+
+Major Takeaways
+
+This architecture ensures:
+
+Clear separation of frontend and backend logic.
+
+Efficient data handling and retrieval.
+
+Intelligent user experience powered by semantic AI.
+
+Scalable and maintainable foundation for future development.
+
+Author: Ifunanya Mirian Ukwuoma
+Date: November 2025
+Version: 1.0
