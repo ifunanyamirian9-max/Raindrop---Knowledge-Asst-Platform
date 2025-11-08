@@ -1,0 +1,115 @@
+# System Architecture – Knowledge Archive
+
+This document describes the high-level technical design for the retrieval-first bookmarking and knowledge platform.
+
+## 1. Overview
+
+The system uses a three-layer structure:
+
+- **Frontend:** Interface where users save, search, and explore content.
+- **Backend:** API layer that handles authentication, saving items, search logic, and recommendations.
+- **Database & Search Layer:** Stores all saved items and powers fast, relevant retrieval.
+
+The goal is to make finding saved content simple, fast, and reliable.
+
+---
+
+## 2. Frontend
+
+**Technology (proposed):** React.js (web)
+
+**Responsibilities:**
+
+- Display saved items, collections, search results, and recommendations
+- Provide input for:
+  - Keyword search
+  - “Ask My Archive” (natural language search)
+- Communicate with backend via HTTPS (JSON APIs)
+
+**Why React:**
+
+- Easy to build interactive dashboards
+- Large ecosystem and community support
+- Works well with component-based design
+
+---
+
+## 3. Backend
+
+**Technology (proposed):** Node.js with Express
+
+**Responsibilities:**
+
+- Handle user signup, login, and authentication
+- Expose RESTful APIs:
+  - `POST /items` – save a new link or note
+  - `GET /items` – list saved items
+  - `GET /search` – keyword search
+  - `POST /ask-archive` – natural language query handling
+- Integrate with search engine (Elasticsearch or vector DB)
+
+**Why Node.js:**
+
+- Non-blocking and scalable
+- Widely understood by developers
+- Works smoothly with JSON-based APIs
+
+---
+
+## 4. Database
+
+**Options:** MongoDB or PostgreSQL
+
+**Data stored:**
+
+- Users
+- Saved items (URL, title, description, tags, content snippet)
+- Activity logs (views, clicks, timestamps)
+
+**Why this is feasible:**
+
+- Both options support large datasets
+- Flexible enough for bookmarks, notes, and metadata
+- Easy to query by user, tag, keyword, or date
+
+---
+
+## 5. Search & “Ask My Archive”
+
+**Search Layer:**
+
+- Use Elasticsearch or a vector database
+- Index:
+  - Titles
+  - Descriptions
+  - Page content (if available)
+  - Tags
+
+**“Ask My Archive” Flow:**
+
+1. User types a natural language query (e.g. “AI tools I saved last month”).
+2. Backend converts it to a semantic search query.
+3. Search layer returns the most relevant items.
+4. Backend sends ranked results back to frontend.
+
+This makes search smarter than exact text matching.
+
+---
+
+## 6. Communication Flow
+
+1. User interacts with the **Frontend**.
+2. Frontend sends requests to the **Backend** via HTTPS.
+3. Backend:
+   - Reads/writes data in the **Database**
+   - Queries the **Search layer** for results
+4. Backend returns clean JSON responses.
+5. Frontend displays results and insights to the user.
+
+---
+
+## 7. Technical Feasibility
+
+- Based on common, well-supported tools (React, Node.js, MongoDB/PostgreSQL, Elasticsearch).
+- Can start as a simple MVP and scale as usage grows.
+- Clear separation of concerns makes it easy for an engineering team to implement, maintain, and extend.
