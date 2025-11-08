@@ -1,4 +1,4 @@
-# System Architecture – Raindrop Reimagined  
+# System Architecture for Raindrop Reimagined  
 
 Raindrop Reimagined is a cloud-based web application designed to help users store, organize, and rediscover digital content across devices.  
 It uses a retrieval-first architecture that connects the frontend, backend, and database through a clean API layer.  
