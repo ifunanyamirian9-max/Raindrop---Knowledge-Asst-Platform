@@ -40,14 +40,12 @@ This redesign positions Raindrop as a personal knowledge hub that lets users red
 4. The AI engine ranks and displays the most relevant results.  
 5. The dashboard redisplays older content tied to current searches.
 
----
-
 ## System architecture overview  
 - **Frontend:** Built with React.js; connects via REST APIs.  
 - **Backend:** Node.js (Express) handles requests and integrates with Elasticsearch.  
 - **Database:** MongoDB stores all saved assets and metadata.  
 - **AI Layer:** Uses NLP to understand and match user intent.  
-- **Integration Flow:** User query → API → Search Engine → AI Layer → Response.
+- **Integration Flow:** User query - API - Search Engine - AI Layer - Response.
 
 
 ## Visual Overview
