@@ -64,7 +64,7 @@ This redesign positions Raindrop as a personal knowledge hub that lets users red
 ---
 
 ## Visual overview  
-View the wireframe here: (https://miro.com/app/board/uXjVJxUgkGA=/)  
+![Wireframe](https://miro.com/app/board/uXjVJxUgkGA=/)  
 
 ---
 
