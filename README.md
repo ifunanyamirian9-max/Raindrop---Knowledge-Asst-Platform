@@ -64,7 +64,7 @@ This redesign positions Raindrop as a personal knowledge hub that lets users red
 ---
 
 ## Visual overview  
-![Wireframe](https://github.com/yourusername/Raindrop---Knowledge-Asst-Platform/blob/main/wireframe.png)  
+View the wireframe here: (https://miro.com/app/board/uXjVJxUgkGA=/)  
 
 ---
 
