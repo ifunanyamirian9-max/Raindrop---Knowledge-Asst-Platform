@@ -50,8 +50,9 @@ This redesign positions Raindrop as a personal knowledge hub that lets users red
 - **Integration Flow:** User query → API → Search Engine → AI Layer → Response.
 
 
-## Visual overview  
-![Wireframe](https://miro.com/app/board/uXjVJxUgkGA=/)  
+## Visual Overview
+You can check out the full wireframe here: [View on Miro](https://miro.com/app/board/uXjVJxUgkGA=/)
+ 
 
 
 ## How to Contribute  
