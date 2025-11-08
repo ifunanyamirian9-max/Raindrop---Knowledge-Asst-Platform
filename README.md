@@ -54,7 +54,7 @@ This redesign positions Raindrop as a personal knowledge hub that lets users red
 
 ---
 
-## 🧩 System architecture overview  
+## System architecture overview  
 - **Frontend:** Built with React.js; connects via REST APIs.  
 - **Backend:** Node.js (Express) handles requests and integrates with Elasticsearch.  
 - **Database:** MongoDB stores all saved assets and metadata.  
@@ -62,9 +62,6 @@ This redesign positions Raindrop as a personal knowledge hub that lets users red
 - **Integration Flow:** User query → API → Search Engine → AI Layer → Response.
 
 ---
-
-## Visual overview  
-![Wireframe](https://miro.com/app/board/uXjVJxUgkGA=/)  
 
 ---
 
