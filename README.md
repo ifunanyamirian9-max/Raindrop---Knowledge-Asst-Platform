@@ -7,19 +7,19 @@ A retrieval-first redesign of Raindrop.io that helps users not just save links, 
 This version turns Raindrop from a simple bookmark manager into a **Knowledge Asset Platform**.  
 Users can save links, notes, videos, and articles, and quickly retrieve them using smart search and recommendations.
 
-## Why It Matters
+## Why It Is Important
 
-People save a lot of content and never find it again.  
-Traditional bookmark tools focus on storage. Users need **retrieval**: “What did I save about X and where is it?”
+People save a lot of content that they find online and never find it again. That is mostly because   
+traditional bookmark tools focus on storage. Users need **retrieval** - “What did I save about X and where is it?”
 
-## Who It’s For
+## Who is Raindrop.io V2 For?
 
 - Students and lifelong learners  
 - Researchers and writers  
 - Knowledge workers who collect links, docs, and ideas  
 - Anyone drowning in screenshots, open tabs, and saved posts
 
-## Key Features
+## Key Features of Raindrop 
 
 - **Retrieval-first onboarding:** New users save a few items and immediately see how search works.
 - **“Ask My Archives”:** Natural language search. e.g. “Show me all AI tools I saved last month.”
